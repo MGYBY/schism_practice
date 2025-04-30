@@ -80,9 +80,9 @@ netcdf.putAtt(ncid2,stmp_var,'long_name','Surface Air Temperature (2m AGL)');
 netcdf.putAtt(ncid2,stmp_var,'standard_name','air_temperature');
 netcdf.putAtt(ncid2,stmp_var,'units','Celsius');
 
-netcdf.putAtt(ncid2,stmp_var,'long_name','Surface Specific Humidity (2m AGL)');
-netcdf.putAtt(ncid2,stmp_var,'standard_name','specific_humidity');
-netcdf.putAtt(ncid2,stmp_var,'units','1');
+netcdf.putAtt(ncid2,spfh_var,'long_name','Surface Specific Humidity (2m AGL)');
+netcdf.putAtt(ncid2,spfh_var,'standard_name','specific_humidity');
+netcdf.putAtt(ncid2,spfh_var,'units','1');
 
 netcdf.endDef(ncid2);
 %end define mode
