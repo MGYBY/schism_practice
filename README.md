@@ -6,3 +6,5 @@ Cmake command: `cmake -C  ../cmake/SCHISM.local.build -C ../cmake/SCHISM.local.m
 or follow the documentation: `cmake -C ../cmake/SCHISM.local.build -C ../cmake/SCHISM.local.myown ../src/ -DCMAKE_Fortran_FLAGS="-fallow-argument-mismatch"`
 
 Wave setup in WWM: `cmake -C ../cmake/SCHISM.local.build -C ../cmake/SCHISM.local.myown ../src/ -DCMAKE_Fortran_FLAGS="-fallow-argument-mismatch -DWWM_SETUP=1"` (also need to modify L513 of `wwm_wave_setup.F90`).
+
+`make -j8 pschism`
