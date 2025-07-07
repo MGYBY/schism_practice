@@ -2,7 +2,7 @@
 %Author: Johannes Pein (johannes.pein@uni-oldenburg.de)
 %Date: Nov 2012
 clear all; close all;
-filename = '2020-5_merged.nc';
+filename = '2019-1_merged.nc';
 ncid=netcdf.open(filename,'NC_NOWRITE');
 
 %read wnd data
@@ -48,6 +48,13 @@ sh = netcdf.getVar(ncid, vid10);
 
 netcdf.close(ncid);
 
+filename = './precip/2019-1';
+ncid=netcdf.open(filename,'NC_NOWRITE');
+vid11=netcdf.inqVarID(ncid,'tp');
+tp = netcdf.getVar(ncid, vid11);
+netcdf.close(ncid);
+
+
 ntime=length(time);
 dt=time(2)-time(1); %in sec
 [X,Y] = meshgrid(lon,lat);
@@ -66,8 +73,8 @@ nn2 = length(lat);
 
 %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
 %define new netcdf file
-delete sflux_air_1.7.nc
-ncid3=netcdf.create('sflux_air_1.7.nc','NC_CLOBBER');
+delete ./sflux_precip/sflux_air_1.3.nc
+ncid3=netcdf.create('./sflux_precip/sflux_air_1.3.nc','NC_CLOBBER');
 lon_dim=netcdf.defDim(ncid3,'nx_grid',nn1); 
 lat_dim=netcdf.defDim(ncid3,'ny_grid',nn2); 
 time_dim=netcdf.defDim(ncid3,'time',ntime);
@@ -89,8 +96,8 @@ srate_var=netcdf.defVar(ncid3,'srate','float',[lat_dim lon_dim time_dim]);
 %und jetzt noch attribute
 netcdf.putAtt(ncid3,time_var,'long_name','Time');
 netcdf.putAtt(ncid3,time_var,'standard_name','time');
-netcdf.putAtt(ncid3,time_var,'units', 'days since 2020-5-1 00:00');
-netcdf.putAtt(ncid3,time_var,'base_date',int32([2020 5 1 0]));
+netcdf.putAtt(ncid3,time_var,'units', 'days since 2019-1-1 00:00');
+netcdf.putAtt(ncid3,time_var,'base_date',int32([2018 1 1 0]));
 
 netcdf.putAtt(ncid3,lon_var,'long_name','Longitude');
 netcdf.putAtt(ncid3,lon_var,'standard_name','longitude');
@@ -112,7 +119,7 @@ netcdf.putAtt(ncid3,v10_var,'long_name','Surface Northward Air Velocity');
 netcdf.putAtt(ncid3,v10_var,'standard_name','northward_wind');
 netcdf.putAtt(ncid3,v10_var,'units','m/s');
 
-netcdf.putAtt(ncid3,stmp_var,'long_name','Surface Air Temperature (2m AGL)');
+netcdf.putAtt(ncid3,stmp_var,'long_name','Temperature');
 netcdf.putAtt(ncid3,stmp_var,'standard_name','air_temperature');
 netcdf.putAtt(ncid3,stmp_var,'units','K');
 
@@ -163,7 +170,7 @@ for sl=1:ntime
     netcdf.putVar(ncid3,dlwrf_var,start,count,dlwrf_2);
     dswrf_2=rot90(squeeze(ssrd(:,:,sl)));
     netcdf.putVar(ncid3,dswrf_var,start,count,dswrf_2);
-    prate_2=rot90(squeeze(0.0*ones(size(ssrd(:,:,sl)))));
+    prate_2=rot90(squeeze(tp(:,:,sl)));
     netcdf.putVar(ncid3,prate_var,start,count,prate_2);
     srate_2=rot90(squeeze(0.0*ones(size(ssrd(:,:,sl)))));
     netcdf.putVar(ncid3,srate_var,start,count,srate_2);
