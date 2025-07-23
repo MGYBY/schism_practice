@@ -1,0 +1,8 @@
+! user comments here 01/01/2000 00:00:00 PST
+0 0. ntip
+0  nbfr
+2 !# of open bnd segments
+9 0 1 2 0  ![#_of_nodes],[elev. b.c.],[vel. b.c.],[tracer b.c. starting from T,S,module#1(GEN), #2(AGE)...]
+0.
+0.7 !nudging factor for S (strongest nudging is 1)
+9 1 0 0 0  ![#_of_nodes],[elev. b.c.],[vel. b.c.],[tracer b.c. starting from T,S,module#1(GEN), #2(AGE)...]
